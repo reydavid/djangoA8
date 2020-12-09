@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>DjangoA8</title>
+        <style>
+            input,
+            textarea {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <h3>Add a course</h3>
+        <form action="/addcourse" method = "POST">
+            {% csrf_token %}
+            <label>Name:</label>
+            <input type="text", name="name">
+            
+            <label>Description:</label>
+            <textarea name="description" id="" cols="50" rows="4"></textarea>
+            
+            <button type="submit">Submit</button>
+        </form>
+
+        <h3>Courses</h3>
+
+        <table>
+            <thead>
+                <th>Course Name</th>
+                <th>Description</th>
+                <th>Date Added</th>
+                <th>Action</th>    
+            </thead>
+            <tbody>
+                {% for course in allCourses %}
+                    <tr>
+                        <td>{{course.name}}</td>
+                        <td>{{course.description}}</td>
+                        <td>{{course.created_at}}</td>
+                        <td><a href="{% url 'courses:removeCourse' id=course.id %}">Remove</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    
+    </body>
+</html>
